@@ -33,9 +33,11 @@ public class PeopleRestService {
 //    }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
-    public void addPerson(People person) {
+    public void addPerson(@QueryParam("id") String id, @QueryParam("name") String name,
+                          @QueryParam("favoriteCity") String favoriteCity) {
+        People person = new People(id, name, favoriteCity);
         peopleDirectory.getPeopleDirectory().put(person.getId(), person);
     }
 }
