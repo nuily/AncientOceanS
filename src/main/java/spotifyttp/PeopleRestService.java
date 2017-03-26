@@ -40,4 +40,20 @@ public class PeopleRestService {
         People person = new People(id, name, favoriteCity);
         peopleDirectory.getPeopleDirectory().put(person.getId(), person);
     }
+
+    @PUT
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public void editPersonUnlessNew(@QueryParam("id") String id,
+                                    @QueryParam("favoriteCity") String favoriteCity) {
+        People person = peopleDirectory.getPeopleDirectory().get(id);
+        person.setFavoriteCity(favoriteCity);
+        peopleDirectory.getPeopleDirectory().put(person.getId(), person);
+    }
+
+    @DELETE
+    @Path("{id}")
+    public void deletePersonBasedOnId(@PathParam("id") String id) {
+        peopleDirectory.getPeopleDirectory().remove(id);
+    }
 }
